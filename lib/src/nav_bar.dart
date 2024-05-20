@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:its/src/category/screens/search.dart';
 import 'package:its/src/home_page.dart';
 import 'package:its/src/category/screens/categories_page.dart';
+import 'package:its/src/category/screens/profile_page.dart';
 
 class Navbar extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class _NavbarState extends State<Navbar> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     HomePage(),
-    SearchPage(),
+    SearchTab(),
     CategoriesPage(),
     ProfilePage(),
   ];
@@ -61,24 +63,6 @@ class _NavbarState extends State<Navbar> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class SearchPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Search Page'),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Profile Page'),
     );
   }
 }

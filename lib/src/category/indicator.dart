@@ -1,47 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-class LoadingIndicator extends StatefulWidget {
-  const LoadingIndicator({Key? key}) : super(key: key);
-
+class CircularIndicator extends StatefulWidget {
   @override
-  _LoadingIndicatorState createState() => _LoadingIndicatorState();
+  _CircularIndicatorState createState() => _CircularIndicatorState();
 }
 
-class _LoadingIndicatorState extends State<LoadingIndicator> {
+class _CircularIndicatorState extends State<CircularIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple[100],
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: CircularPercentIndicator(
-            animation: true,
-            animationDuration: 10000,
-            radius: 150,
-            lineWidth: 30,
-            percent: 0.8,
-            progressColor: Colors.deepPurple,
-            backgroundColor: Colors.deepPurple.shade200,
-            circularStrokeCap: CircularStrokeCap.round,
-            center: Text(
-              '${(0.8 * 100).toInt()}%',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
-          ),
-        ),
-      ),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size(80, 80), // Adjust size here
+          painter: CircularIndicatorPainter(_controller.value),
+        );
+      },
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: LoadingIndicator(),
-  ));
+class CircularIndicatorPainter extends CustomPainter {
+  final double progress;
+
+  CircularIndicatorPainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint backgroundPaint = Paint()
+      ..color = Colors.grey.shade300
+      ..strokeWidth = 10.0 
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    final Paint progressPaint = Paint()
+      ..color = Colors.orange
+      ..strokeWidth = 10.0 
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    final double radius = size.width / 2;
+    final int totalSegments = 6; 
+    final double segmentAngle = (2 * 3.1415927) / totalSegments;
+    final double startAngle = -3.1415927 / 2;
+
+    for (int i = 0; i < totalSegments; i++) {
+      final double sweepAngle = segmentAngle * 0.75;
+      canvas.drawArc(
+        Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2), radius: radius),
+        startAngle + i * segmentAngle,
+        sweepAngle,
+        false,
+        i < progress * totalSegments ? progressPaint : backgroundPaint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
 }

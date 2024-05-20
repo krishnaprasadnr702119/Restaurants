@@ -17,6 +17,16 @@ class Categories {
     strCategoryDescription = json['strCategoryDescription'];
   }
 
+  get imageUrl => null;
+
+  get description => null;
+
+  get price => null;
+
+  get title => null;
+
+  get name => null;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['idCategory'] = idCategory;

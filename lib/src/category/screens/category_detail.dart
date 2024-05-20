@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:its/src/category/model/categories_model.dart';
+import 'package:its/src/category/screens/order.dart';
 import 'package:its/src/category/screens/promo_tab.dart';
 
 class CategoryDetailPage extends StatelessWidget {
@@ -18,17 +19,36 @@ class CategoryDetailPage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
-                      ),
-                      image: DecorationImage(
-                        image: NetworkImage(category.strCategoryThumb ?? ''),
-                        fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  OrderPage(category: category),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 300,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                        ),
+                        image: DecorationImage(
+                          image: NetworkImage(category.strCategoryThumb ?? ''),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -39,13 +59,13 @@ class CategoryDetailPage extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Icon(Icons.arrow_back, color: Colors.white),
+                      child: Icon(Icons.arrow_back, color: Colors.black),
                     ),
                   ),
                   Positioned(
                     top: 16.0,
                     right: 16.0,
-                    child: Icon(Icons.favorite, color: Colors.white),
+                    child: Icon(Icons.favorite, color: Colors.red),
                   ),
                 ],
               ),
@@ -129,7 +149,6 @@ class CategoryDetailPage extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.only(left: 30),
@@ -143,7 +162,6 @@ class CategoryDetailPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16),
-                    // White Container with rounded corners inside the yellow container
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(

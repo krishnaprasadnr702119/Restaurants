@@ -19,20 +19,28 @@ class PromoTab extends StatelessWidget {
           description:
               'Crispy onion rings, tangy BBQ sauce and American cheese',
           price: '\$5.90',
-          imageUrl: 'assets/beef_burger.jpg',
+          imageUrl: 'assets/PotatoBurger.jpg',
         ),
         PromoCard(
-            title: 'Chef\'s Burger',
-            description:
-                'Sandwich features two savory flame-grilled beef patties',
-            price: '\$6.19',
-            imageUrl: 'assets/mushroom.jpg'),
-        PromoCard(
-          title: 'Delhi\'s Burger',
+          title: 'Rodeo Burger',
           description:
-              'Sandwich features two savory flame-grilled beef patties',
-          price: '\$6.19',
-          imageUrl: 'assets/beef_burger.jpg',
+              'Crispy onion rings, tangy BBQ sauce and American cheese',
+          price: '\$5.90',
+          imageUrl: 'assets/PotatoBurger.jpg',
+        ),
+        PromoCard(
+          title: 'Rodeo Burger',
+          description:
+              'Crispy onion rings, tangy BBQ sauce and American cheese',
+          price: '\$5.90',
+          imageUrl: 'assets/PotatoBurger.jpg',
+        ),
+        PromoCard(
+          title: 'Rodeo Burger',
+          description:
+              'Crispy onion rings, tangy BBQ sauce and American cheese',
+          price: '\$5.90',
+          imageUrl: 'assets/PotatoBurger.jpg',
         ),
       ],
     );
